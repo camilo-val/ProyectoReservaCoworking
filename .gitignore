@@ -1,0 +1,73 @@
+# Compilación de Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Directorios generados por compilación
+/target/
+bin/
+build/
+
+# Archivos y directorios específicos de NetBeans
+nbproject/private/
+nbbuild/
+nbdist/
+nbactions.xml
+*.nb-gradle/
+
+# Archivos de configuración de IDE
+/.idea/
+/*.iml
+/.project
+/.classpath
+/.settings/
+*.suo
+*.ntvs_analysis.dat
+*.vscode/
+
+# Archivos de logs
+*.log
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.swp
+
+# Archivos de Maven
+.mvn/
+*.mvn/
+
+# Archivos de Gradle
+.gradle/
+build.gradle
+gradle-wrapper.jar
+gradle-wrapper.properties
+.gradle/
+
+# Archivos de configuración de test
+/coverage/
+
+# Archivos de entorno de contenedores (como Docker)
+.dockerignore
+Dockerfile
+
+# Archivos específicos de compilación
+*.class
+
+# Archivos de seguridad (como contraseñas)
+*.env
+
+# Archivos de herramientas de análisis estático
+/.sonar/
+
+# Archivos de temporales de compilación
+*.tmp
+*.bak
+
+# Archivos de salida de Eclipse
+*.launch
+*.pydevproject
