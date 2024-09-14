@@ -9,6 +9,22 @@ package utils;
  * @author Camilo
  */
 public class FormatoFecha {
+        public static boolean validarFormato(String[] fecha){
+            if (fecha.length  == 2) {
+                if(fecha[0].length() != 2 && fecha[1].length() != 2){
+                    return false;
+                }
+            }else{
+                if(fecha[0].length() != 4){
+                    return false;
+                }else if(fecha[1].length() != 2 && fecha[2].length() != 2){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
         public static int[] formatoFecha(String fecha){
         int[] formato = new int[3];
         formato[0]= Integer.parseInt(fecha.substring(0,4));
@@ -20,7 +36,7 @@ public class FormatoFecha {
         if(fecha.charAt(6) == '0') {
             formato[2] = Integer.parseInt(fecha.substring(fecha.length()-1));
         }else{
-            formato[2] = Integer.parseInt(fecha.substring(6, fecha.length()-1));
+            formato[2] = Integer.parseInt(fecha.substring(6, fecha.length()));
         }
         return formato;
     }
