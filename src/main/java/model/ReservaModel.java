@@ -21,8 +21,7 @@ public class ReservaModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     SalasModel espacio;
     LocalTime hora;
-
-    
+    byte duracion;
     
     public int getIdrserva() {
         return idrserva;
@@ -65,5 +64,12 @@ public class ReservaModel implements Serializable {
         this.hora = hora;
     }
     
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(byte duracion) {
+        this.duracion = duracion;
+    }
     
 }

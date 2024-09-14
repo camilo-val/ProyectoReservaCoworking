@@ -36,8 +36,12 @@
                         </div>
             
                         <div class="mb-3 ">
+                            <label class="form-label fs-4" for="duracion_reserva">Inicio reserva</label>
+                            <input class="form-control" type="time" placeholder="Duración de la reserva" id="inicio_reserva" name="inicio_reserva" required>
+                        </div>
+                        <div class="mb-3 ">
                             <label class="form-label fs-4" for="duracion_reserva">Duración de la reserva</label>
-                            <input class="form-control" type="time" placeholder="Duración de la reserva" id="duracion_reserva" name="duracion_reserva" required>
+                            <input class="form-control" type="number" placeholder="Duración de la reserva" id="duracion_reserva" name="duracion_reserva" required>
                         </div>
                         <%
                             String mensaje = (String )request.getSession().getAttribute("mensaje");
@@ -48,6 +52,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         <%
+                                request.getSession().removeAttribute("mensaje");
                             }else if(mensaje != null && mensaje.contains("invalid")){
                         %>          
                             <div id="myAlert" class="alert alert-danger alert-dismissible fade show" role="alert">

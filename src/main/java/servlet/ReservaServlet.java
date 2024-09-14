@@ -39,22 +39,21 @@ public class ReservaServlet extends HttpServlet {
         crearSala();
         HttpSession session = request.getSession();
         int sala = Integer.parseInt(request.getParameter("espacio_trabajo"));
+        byte duracion = Byte.parseByte(request.getParameter("duracion_reserva"));        
         String nombre = request.getParameter("nombre"),
                 fechajsp = request.getParameter("fecha_reserva"),
-                horajsp = request.getParameter("duracion_reserva");
+                horajsp = request.getParameter("inicio_reserva");
         LocalDate fecha;
         LocalTime hora;
-        boolean validarcampos = validarCampos(session, request, nombre, String.valueOf(sala), fechajsp, horajsp);
+        boolean validarcampos = validarCampos(session, request, nombre, String.valueOf(sala), fechajsp, horajsp, String.valueOf(duracion));
         if (validarcampos) {
             int[] fechaFormateada = formatoFecha(fechajsp.replaceAll("-", "")),
             horaFormateada = formatoHora(horajsp.replaceAll(":", ""));
             hora = LocalTime.of(horaFormateada[0],horaFormateada[1]);
             fecha = LocalDate.of(fechaFormateada[0],fechaFormateada[1],fechaFormateada[2]);
             Controller controller = new Controller();
-            controller.crearReserva(nuevaReserva(nombre, sala, fecha, hora));
+            controller.crearReserva(nuevaReserva(nombre, sala, fecha, hora,duracion));
             session.setAttribute("mensaje", "Se ha registrado la reserva de forma exitosa");
-        }else{
-            System.out.println(" Mensaje: "+session.getAttribute("mensaje"));
         }
         request.getRequestDispatcher("index.jsp").forward(request, response);
         
@@ -64,7 +63,7 @@ public class ReservaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-    public boolean validarCampos(HttpSession session, HttpServletRequest request,String nombre, String espacio, String fecha,String hora) throws IOException{
+    public boolean validarCampos(HttpSession session, HttpServletRequest request,String nombre, String espacio, String fecha,String hora,String duracion) throws IOException{
         System.out.println("Fecha actual jsp: " + fecha);
 
         String[] valorFecha = fecha.trim().split("-");
@@ -107,14 +106,23 @@ public class ReservaServlet extends HttpServlet {
             session.setAttribute("mensaje", "Hola invalida");
             return false;
         }
+        if(duracion.isEmpty() || duracion.isBlank()){
+            session.setAttribute("mensaje", "Nombre invalido, el nombre no puede ser vacio");
+            return false;
+        } 
+        if(Integer.parseInt(duracion)<0 ||Integer.parseInt(duracion)>25){
+            session.setAttribute("mensaje", "Tiempo de duración invalido, debe ser en un rango de 24 horas");
+            return false;
+        } 
         return true;
     }
-    private static ReservaModel nuevaReserva(String nombre, int espacio, LocalDate fecha,LocalTime hora){
+    private static ReservaModel nuevaReserva(String nombre, int espacio, LocalDate fecha,LocalTime hora,byte duracion){
         ReservaModel reservaModel = new ReservaModel();
         reservaModel.setNombre(nombre);
         reservaModel.setEspacio(new SalasModel(espacio,""));
         reservaModel.setFecha(fecha);
         reservaModel.setHora(hora);
+        reservaModel.setDuracion(duracion);
         return reservaModel;
     }
     

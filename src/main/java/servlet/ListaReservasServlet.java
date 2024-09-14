@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -17,70 +12,35 @@ import javax.servlet.http.HttpSession;
 import model.Controller;
 import model.ReservaModel;
 
-/**
- *
- * @author Camilo
- */
 @WebServlet(name = "ListaReservasServlet", urlPatterns = {"/ListaReservasServlet"})
 public class ListaReservasServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-                    List <ReservaModel> reservas= new ArrayList<>();
+            List <ReservaModel> reservas= new ArrayList<>();
             Controller controller = new Controller();
             reservas.addAll(controller.mostrarReservas());
-            for(int i=0; i<reservas.size(); i++){
-                System.out.println("I = " + reservas.get(i).getEspacio().getEspacio()); 
-            }
             HttpSession session = request.getSession();
+            if(reservas.isEmpty()){
+                session.setAttribute("mensaje", "No se han registrado reservas");
+            }
             session.setAttribute("reservas", reservas);
-            response.sendRedirect("mostrarReservas.jsp");
+            request.getRequestDispatcher("mostrarReservas.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

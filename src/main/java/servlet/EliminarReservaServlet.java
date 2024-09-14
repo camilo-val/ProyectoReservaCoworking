@@ -6,6 +6,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -13,7 +15,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Controller;
+import model.ReservaModel;
 import persistence.exceptions.NonexistentEntityException;
 
 /**
@@ -65,13 +69,18 @@ public class EliminarReservaServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         Controller controller = new Controller();
+        HttpSession session = request.getSession();
+        List <ReservaModel> reservas= new ArrayList<>();
         int idreserva = Integer.parseInt(request.getParameter("id_reserva"));
         try {
             controller.eliminarReserva(idreserva);
+            reservas.addAll(controller.mostrarReservas());
+            session.setAttribute("reservas", reservas);
+            session.setAttribute("mensaje", "Registro Eiliminado exitosamente");
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(EliminarReservaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("index.jsp");
+        request.getRequestDispatcher("mostrarReservas.jsp").forward(request, response);
     }
 
     /**
