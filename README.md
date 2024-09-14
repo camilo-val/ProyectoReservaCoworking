@@ -1,4 +1,9 @@
-# Guía de Configuración del Ambiente de Desarrollo para Proyecto Java Web con XAMPP
+##Funcionalidad
+
+El proyecto de reservas te permite agendar una reserva mediante un formulario que te captura los siguientes datos: nombre, fecha, espacio, hora inicio y duración.
+Adicionalmente permite ver las reservas y eliminar la reserva desaeada.
+
+7yu# Guía de Configuración del Ambiente de Desarrollo para Proyecto Java Web con XAMPP
 
 ## Descripción
 
