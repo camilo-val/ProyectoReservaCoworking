@@ -1,4 +1,9 @@
-# Guía de Configuración del Ambiente de Desarrollo para Proyecto Java Web con XAMPP
+##Funcionalidad
+
+El proyecto de reservas te permite agendar una reserva mediante un formulario que te captura los siguientes datos: nombre, fecha, espacio, hora inicio y duración.
+Adicionalmente permite ver las reservas y eliminar la reserva desaeada.
+
+7yu# Guía de Configuración del Ambiente de Desarrollo para Proyecto Java Web con XAMPP
 
 ## Descripción
 
@@ -32,10 +37,16 @@ Este archivo contiene instrucciones para configurar el entorno de desarrollo par
     - **JAVA_HOME**: Ruta al directorio donde está instalado el JDK.
 4. Inicia Apache Tomcat ejecutando el script `startup.bat` (en Windows) o `startup.sh` (en Linux/Mac) desde el directorio `bin` de Tomcat.
 
-### 4. Configurar el Proyecto Java
+### 4. Despliegue en servidor tomcat
 
 1. **Coloca el proyecto Java** en la carpeta `webapps` de tu directorio de Tomcat (`C:\apache-tomcat-9.x\webapps`).
 2. Asegúrate de que tu proyecto esté empaquetado como un archivo WAR (`.war`).
+
+### 4. Configurar el Proyecto Java
+
+1. Asegurese de descargar el mysql connector mysql-connector-java-8.0.17
+2. Realiza la configuración del servidor de bases de datos.
+
 
 ### 5. Configurar la Conexión a la Base de Datos
 
