@@ -29,9 +29,9 @@
                             <label class="form-label fs-4" for="espacio_trabajo">Espacio de trabajo</label>
                             <select class="form-select form-select mb-3" required name="espacio_trabajo">
                                 <option value="0">-------Seleccione la sala de reserva--------</option>
-                                <option value="1">Sala de ventas</option>
-                                <option value="2">Sala de normal</option>
-                                <option value="3">Sala de normal</option>
+                                <option value="1">escritorio</option>
+                                <option value="2">sala de reuniones</option>
+                                <option value="3">oficina privada</option>
                             </select>
                         </div>
             

@@ -27,43 +27,17 @@ import persistence.exceptions.NonexistentEntityException;
 @WebServlet(name = "EliminarReservaServlet", urlPatterns = {"/EliminarReservaServlet"})
 public class EliminarReservaServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -71,26 +45,27 @@ public class EliminarReservaServlet extends HttpServlet {
         Controller controller = new Controller();
         HttpSession session = request.getSession();
         List <ReservaModel> reservas= new ArrayList<>();
+        //Se captura el id de registro a eliminar
         int idreserva = Integer.parseInt(request.getParameter("id_reserva"));
         try {
+            //Se ejecuta el delete
             controller.eliminarReserva(idreserva);
+            //Se ejecuta la consulta nuevamente para mostrar los datos actualizados
             reservas.addAll(controller.mostrarReservas());
+            //Se devuelve mensaje y se setea la lista para actualizarla en front
             session.setAttribute("reservas", reservas);
             session.setAttribute("mensaje", "Registro Eiliminado exitosamente");
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(EliminarReservaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //Se reenderiza al mostrarReservas pero de esta manera conservamos nuestras variables de sessión
         request.getRequestDispatcher("mostrarReservas.jsp").forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
